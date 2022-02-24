@@ -1,0 +1,33 @@
+syntax = "proto3";
+package pdytr.example.grpc;
+
+message ReadRequest{
+  // Each message attribute is strongly typed.
+  // You also must assign a "tag" number.
+  // Each tag number is unique within the message.
+  string filename = 1;
+  int32 file_position = 2;
+  int32 read_size = 3;
+}
+
+message ReadResponse{
+  int32 data_size = 1;
+  bytes data = 2;
+}
+
+message WriteRequest{
+  string filename = 1;
+  int32 data_size = 2;
+  bytes data = 3;
+}
+
+message WriteResponse{
+  int64 writtenBytes = 1;
+}
+
+// Defining a Service, a Service can have multiple RPC operations
+service FileTransferService{
+  rpc leer(ReadRequest) returns (ReadResponse);
+  rpc escribir(WriteRequest) returns (WriteResponse);
+}
+
